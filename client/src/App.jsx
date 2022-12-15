@@ -4,7 +4,7 @@ import LoginPage from "./scenes/LoginPage/index";
 import ProfilePage from "./scenes/ProfilePage/index";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { CssBaseline, ThemeProvider } from "@mui/icons-material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 
