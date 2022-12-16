@@ -1,28 +1,49 @@
+import { useMemo, useState } from "react";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
-import HomePage from "./scenes/HomePage/index";
-import LoginPage from "./scenes/LoginPage/index";
-import ProfilePage from "./scenes/ProfilePage/index";
-import { useMemo } from "react";
+import HomePage from "./scenes/HomePage/HomePage";
+import LoginPage from "./scenes/LoginPage/LoginPage";
+import ProfilePage from "./scenes/ProfilePage/ProfilePage";
 import { useSelector } from "react-redux";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { createTheme } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ColorModeContext } from "./config/colorContext";
+import CssBaseline from "@mui/material/CssBaseline";
 import { themeSettings } from "./theme";
+import { useEffect } from "react";
+import { useMediaQuery } from "@mui/material";
 
 function App() {
-  const mode = useSelector((state) => state.mode);
+  // const mode = useSelector((state) => state.mode);
+  const prefersLightMode = useMediaQuery("(prefers-color-scheme: light)");
+  const [mode, setMode] = useState();
+
+  useEffect(() => {
+    setMode(prefersLightMode ? "light" : "dark");
+  }, [prefersLightMode]);
+
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+      },
+    }),
+    []
+  );
+
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
 
   return (
     <div className="app">
       <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/profile/:userId" element={<ProfilePage />} />
-          </Routes>
-        </ThemeProvider>
+        <ColorModeContext.Provider value={colorMode}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Routes>
+              <Route path="/" element={<LoginPage />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/profile/:userId" element={<ProfilePage />} />
+            </Routes>
+          </ThemeProvider>
+        </ColorModeContext.Provider>
       </BrowserRouter>
     </div>
   );
