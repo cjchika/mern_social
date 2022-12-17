@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
-// import Form from "./Form"
+import Form from "./Form";
 
 const LoginPage = () => {
   const theme = useTheme();
@@ -11,6 +11,7 @@ const LoginPage = () => {
         width="100%"
         backgroundColor={theme.palette.background.alt}
         p="1rem 6%"
+        textAlign="center"
       >
         <Typography fontWeight="bold" fontSize="32px" color="primary">
           Mern Social
@@ -21,11 +22,12 @@ const LoginPage = () => {
         p="2rem"
         m="2rem auto"
         borderRadius="1.5rem"
-        background={theme.palette.background.alt}
+        backgroundColor={theme.palette.background.alt}
       >
         <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
           Welcome to Mern Social, the Social media for Mern Freaks
         </Typography>
+        <Form />
       </Box>
     </Box>
   );
