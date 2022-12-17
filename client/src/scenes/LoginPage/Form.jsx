@@ -66,10 +66,6 @@ const Form = () => {
       "http://localhost:3001/auth/register",
       {
         method: "POST",
-        // headers: {
-        //   Accept: "application/json",
-        //   "Content-Type": "application/json",
-        // },
         body: formdata,
       }
     );
